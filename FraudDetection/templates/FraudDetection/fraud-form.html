@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<h1>Fraud Form</h1>
+{{ Error }}
+
+<form action="/fraud-detection/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Submit'>
+</form>
+
+<h1>Prediction Result: {{ request.session.result }}</h1>
+
+{% endblock contents %}
