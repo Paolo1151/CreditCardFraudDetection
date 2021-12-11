@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from sklearn.compose import ColumnTransformer
 
 from . import forms
@@ -50,12 +51,14 @@ funcs = [
 bst = xgb.Booster({'nthread': 4})
 bst.load_model(os.path.join(os.getcwd(), 'models/model_xgboost.json'))
 
-def fraud_detection(request):
+def fraud_detection(request, result=''):
+    if result == '':
+        temp_result = 'None'
+    else:
+        temp_result = result
     if request.method == 'GET':
-        if not 'result' in request.session:
-            request.session['result'] = 'None' 
         form = forms.FraudDetectionForm()
-        return render(request, 'FraudDetection/fraud-form.html', {'form': form, 'Error': ''})
+        return render(request, 'FraudDetection/fraud-form.html', {'form': form, 'Error': '', 'labelled_result': temp_result})
     elif request.method == 'POST':
         form = forms.FraudDetectionForm(request.POST)
         if form.is_valid():
@@ -76,7 +79,7 @@ def fraud_detection(request):
 
             result = round(bst.predict(dmat)[0])
 
-            request.session['result'] = 'Fraud' if result == 1 else 'Not Fraud'
-            return redirect('/fraud-detection')
+            labelled_result = 'Fraud' if result == 1 else 'Not Fraud'
+            return redirect(reverse('Predicted Fraud Detection', kwargs={'result': labelled_result}))
         else:
             return render(request, 'FraudDetection/fraud-form.html', {'Error': 'Invalid Form'})

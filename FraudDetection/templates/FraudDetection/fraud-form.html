@@ -9,7 +9,7 @@
 {% block contents %}
 
 <div class='outerbox'>
-    <h1 style='text-align:center;'>Prediction Result: {{ request.session.result }}</h1>
+    <h1 style='text-align:center;'>Prediction Result: {{ labelled_result }}</h1>
     <br>
 
     <form action="/fraud-detection/" method="post" name='FraudForm'>
