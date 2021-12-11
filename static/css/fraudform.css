@@ -1,0 +1,30 @@
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input{
+    margin: 0 auto;
+    width: 425px;
+}
+
+.outerbox{
+    width: 90%;
+    margin: auto;
+    background-color:black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    outline: 2px solid black
+}
+
+label {
+    color: white;
+}
+
+.TestDataFill{
+    width: 20%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    background-color: blue;
+}

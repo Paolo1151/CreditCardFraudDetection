@@ -1,9 +1,17 @@
+{% load static %}
+
 <html>
     <head>
+        <title>Sigma Security Model Sandbox</title>
+        <link rel='stylesheet' href="{% static 'CSS/base.css' %}">
+        {% block styles %}
+        {% endblock styles %}
     </head>
     <body>
         {% include 'navbar.html' %}
         {% block contents %}
         {% endblock contents %}
+        {% block scripts %}
+        {% endblock scripts %}
     </body>
 </html>

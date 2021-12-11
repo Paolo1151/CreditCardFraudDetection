@@ -1,15 +1,180 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel='stylesheet' href="{% static 'css/fraudform.css' %}">
+{% endblock styles %}
+
 
 {% block contents %}
-<h1>Fraud Form</h1>
+
+<div class='outerbox'>
+    <h1 style='text-align:center;'>Prediction Result: {{ request.session.result }}</h1>
+    <br>
+
+    <form action="/fraud-detection/" method="post" name='FraudForm'>
+        {% csrf_token %}
+
+        <table class='center'>
+            <tr>
+                <td>
+                    {{ form.ssn.errors }}
+                    <label for="{{ form.ssn.id_for_label }}">Social Security Number</label>
+                    {{ form.ssn }}
+                </td>
+                <td>
+                    {{ form.cc_num.errors }}
+                    <label for="{{ form.cc_num.id_for_label }}">Credit Card Number</label>
+                    {{ form.cc_num }}
+                </td>
+                <td>
+                    {{ form.first.errors }}
+                    <label for="{{ form.first.id_for_label }}">First Name</label>
+                    {{ form.first }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.last.errors }}
+                    <label for="{{ form.last.id_for_label }}">Last Name</label>
+                    {{ form.last }}
+                </td>
+                <td>
+                    {{ form.gender.errors }}
+                    <label for="{{ form.gender.id_for_label }}">Gender (M/F)</label>
+                    {{ form.gender }}
+                </td>
+                <td>
+                    {{ form.street.errors }}
+                    <label for="{{ form.street.id_for_label }}">Street</label>
+                    {{ form.street }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.city.errors }}
+                    <label for="{{ form.city.id_for_label }}">City</label>
+                    {{ form.city }}
+                </td>
+                <td>
+                    {{ form.state.errors }}
+                    <label for="{{ form.state.id_for_label }}">State</label>
+                    {{ form.state }}
+                </td>
+                <td>
+                    {{ form.zip.errors }}
+                    <label for="{{ form.zip.id_for_label }}">Zip</label>
+                    {{ form.zip }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.lat.errors }}
+                    <label for="{{ form.lat.id_for_label }}">Latitude</label>
+                    {{ form.lat }}
+                </td>
+                <td>
+                    {{ form.long.errors }}
+                    <label for="{{ form.long.id_for_label }}">Longitude</label>
+                    {{ form.long }}
+                </td>
+                <td>
+                    {{ form.city_pop.errors }}
+                    <label for="{{ form.city_pop.id_for_label }}">City</label>
+                    {{ form.city_pop }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.job.errors }}
+                    <label for="{{ form.job.id_for_label }}">Job</label>
+                    {{ form.job }}
+                </td>
+                <td>
+                    {{ form.dob.errors }}
+                    <label for="{{ form.dob.id_for_label }}">Date of Birth (yyyy-mm-dd)</label>
+                    {{ form.dob }}
+                </td>
+                <td>
+                    {{ form.acct_num.errors }}
+                    <label for="{{ form.acct_num.id_for_label }}">Account Number</label>
+                    {{ form.acct_num }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.trans_num.errors }}
+                    <label for="{{ form.trans_num.id_for_label }}">Transaction Number</label>
+                    {{ form.trans_num }}
+                </td>
+                <td>
+                    {{ form.trans_date.errors }}
+                    <label for="{{ form.trans_date.id_for_label }}">Transaction Date (yyyy-mm-dd)</label>
+                    {{ form.trans_date }}
+                </td>
+                <td>
+                    {{ form.trans_time.errors }}
+                    <label for="{{ form.trans_time.id_for_label }}">Transaction Time (hh:mm:ss)</label>
+                    {{ form.trans_time }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.unix_time.errors }}
+                    <label for="{{ form.unix_time.id_for_label }}">Unix Time</label>
+                    {{ form.unix_time }}
+                </td>
+                <td>
+                    {{ form.category.errors }}
+                    <label for="{{ form.category.id_for_label }}">Purchase Category</label>
+                    {{ form.category }}
+                </td>
+                <td>
+                    {{ form.amt.errors }}
+                    <label for="{{ form.amt.id_for_label }}">Amount</label>
+                    {{ form.amt }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form.merchant.errors }}
+                    <label for="{{ form.merchant.id_for_label }}">Merchant Name</label>
+                    {{ form.merchant }}
+                </td>
+                <td>
+                    {{ form.merch_lat.errors }}
+                    <label for="{{ form.merch_lat.id_for_label }}">Merchant Latitude</label>
+                    {{ form.merch_lat }}
+                </td>
+                <td>
+                    {{ form.merch_long.errors }}
+                    <label for="{{ form.merch_long.id_for_label }}">Merchant Longitude</label>
+                    {{ form.merch_long }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type='submit' value='Submit' class='input'>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+    <br>
+</div>
 {{ Error }}
 
-<form action="/fraud-detection/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Submit'>
-</form>
-
-<h1>Prediction Result: {{ request.session.result }}</h1>
+<div class='TestDataFill'>
+    <button onclick="fraudfillin()">Fill Form with Fraudulent Data</button>
+    <button onclick="nonfraudfillin()">Fill Form with Non-Fraudulent Data</button>
+</div>
 
 {% endblock contents %}
+
+{% block scripts %}
+<script type='text/javascript' src="{% static 'js/test_fillin.js' %}"></script>
+{% endblock scripts %}

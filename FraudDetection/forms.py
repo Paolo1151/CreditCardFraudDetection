@@ -7,7 +7,7 @@ class FraudDetectionForm(forms.Form):
     first = forms.CharField(label='First Name', max_length=255)
     last = forms.CharField(label='Last Name', max_length=255)
 
-    gender = forms.CharField(label='Gender', max_length=1)
+    gender = forms.CharField(label='Gender', max_length=255)
 
     street = forms.CharField(label='Street', max_length=255)
     city = forms.CharField(label='City', max_length=255)

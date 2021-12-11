@@ -55,7 +55,7 @@ def fraud_detection(request):
         if not 'result' in request.session:
             request.session['result'] = 'None' 
         form = forms.FraudDetectionForm()
-        return render(request, 'FraudDetection/fraud-form.html', {'form': form, 'Error':False})
+        return render(request, 'FraudDetection/fraud-form.html', {'form': form, 'Error': ''})
     elif request.method == 'POST':
         form = forms.FraudDetectionForm(request.POST)
         if form.is_valid():
